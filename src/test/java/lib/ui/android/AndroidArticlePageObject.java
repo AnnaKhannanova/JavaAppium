@@ -2,6 +2,7 @@ package lib.ui.android;
 
 import io.appium.java_client.AppiumDriver;
 import lib.ui.ArticlePageObject;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class AndroidArticlePageObject extends ArticlePageObject {
 
@@ -18,7 +19,7 @@ public class AndroidArticlePageObject extends ArticlePageObject {
                 ARTICLE_TITLE_TEXT_ELEMENT = "id:org.wikipedia:id/view_page_title_text";
     }
 
-    public AndroidArticlePageObject(AppiumDriver driver){
+    public AndroidArticlePageObject(RemoteWebDriver driver){
         super(driver);
     }
 }

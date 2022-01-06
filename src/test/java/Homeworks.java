@@ -16,12 +16,16 @@ import java.util.List;
 public class Homeworks extends CoreTestCase {
 
     private static final String name_of_folder = "My articles";
+    private static final String
+            login = "Chibrina",
+            password = "chibrina1945";
 
 
     @Test
-    public void testSaveTwoArticlesAndDeleteOne(){
+    public void testSaveTwoArticlesAndDeleteOne() throws InterruptedException {
 
         String search_value = "Java";
+        String article_title = "Java";
         String description1 = "Object-oriented programming language";
         String description2 = "Indonesian island";
         String description3 = "Island of Indonesia";
@@ -45,18 +49,38 @@ public class Homeworks extends CoreTestCase {
             ArticlePageObject.addArticleToMySaved();
         }
 
+        //Authorize in mobile version
+        if (Platform.getInstance().isMw()){
+            AuthorizationPageObject Auth = new AuthorizationPageObject(driver);
+            //Click the 'Sign in' button
+            Auth.clickAuthButton();
+            //Enter login and password
+            Auth.enterLoginData(login, password);
+            //Confirm login and password
+            Auth.submitForm();
+
+            ArticlePageObject.waitForTitleElement();
+
+            assertEquals("We are not on the same page after login.",
+                    article_title1,
+                    ArticlePageObject.getArticleTitle()
+            );
+        }
+
         //close the article
         ArticlePageObject.closeArticle();
 
         //Find the second article
-        if (Platform.getInstance().isAndroid()){
+        if (Platform.getInstance().isAndroid() || Platform.getInstance().isMw()){
             SearchPageObject.initSearchInput(); //get the search field
             SearchPageObject.typeSearchLine(search_value);    //type "Java" to the search field
+        }
+
+        if (Platform.getInstance().isAndroid()){
             SearchPageObject.clickByArticleWithSubstring(description3);  //click the article within the list
         } else {
             SearchPageObject.clickByArticleWithSubstring(description2);  //click the article within the list
         }
-
         //wait until the second article page is loaded
         String article_title2 = ArticlePageObject.getArticleTitle();
 
@@ -78,14 +102,18 @@ public class Homeworks extends CoreTestCase {
         NavigationUI NavigationUI = NavigationUIFactory.get(driver);
 
         //Click the navigation button to get reading lists
+        //Open the navigation menu
+        NavigationUI.openNavigation();
         NavigationUI.clickMyList();
+
 
         //Open the reading list
         if (Platform.getInstance().isAndroid()){
             MyListPageObject.openFolderByName(name_of_folder);
-        } else {
+        } else if (Platform.getInstance().isIOS()){
             MyListPageObject.waitAndClickCloseSyncButton();
         }
+
 
         //Delete the first article
         MyListPageObject.swipeByArticleToDelete(article_title1);
@@ -100,11 +128,17 @@ public class Homeworks extends CoreTestCase {
                     description3.toLowerCase(),
                     MyListPageObject.getDescription(description3).getAttribute("text").toLowerCase()
             );
-        } else {
+        } else if (Platform.getInstance().isIOS()){
             assertEquals(
                     "Unexpected description",
                     description2.toLowerCase(),
                     MyListPageObject.getDescription(description2).getAttribute("name").toLowerCase()
+            );
+        } else {
+            assertEquals(
+                    "Unexpected title",
+                    article_title,
+                    article_title2
             );
         }
 
@@ -174,7 +208,22 @@ public class Homeworks extends CoreTestCase {
                     );
                 }
             }
+
+
         }
+
+    @Test
+    public void testFindSearchResultByTitleAndDescription(){
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
+
+        String search_line = "Java";
+        String title = "JavaScript";
+        String description = "Programming language";
+
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine(search_line);
+        SearchPageObject.waitForElementByTitleAndDescription(title, description);
+    }
 
 }
 

@@ -1,6 +1,7 @@
 package tests;
 
 import lib.CoreTestCase;
+import lib.Platform;
 import lib.ui.SearchPageObject;
 import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
@@ -15,7 +16,6 @@ public class SearchTests extends CoreTestCase {
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
         SearchPageObject.waitForSearchResult("Object-oriented programming language");
-
     }
 
     @Test
@@ -24,10 +24,15 @@ public class SearchTests extends CoreTestCase {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
-        SearchPageObject.waitForCancelButtonToAppear();
-        SearchPageObject.clickCancelSearch();
-        SearchPageObject.waitForCancelButtonToDisappear();
 
+        if (Platform.getInstance().isIOS()){
+            SearchPageObject.waitForCancelButtonAndClick();
+        } else {
+            SearchPageObject.waitForCancelButtonToAppear();
+            SearchPageObject.clickCancelSearch();
+        }
+
+        SearchPageObject.waitForCancelButtonToDisappear();
     }
 
 
@@ -60,17 +65,5 @@ public class SearchTests extends CoreTestCase {
 
     }
 
-    @Test
-    public void testFindSearchResultByTitleAndDescription(){
-        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
-
-        String search_line = "Java";
-        String title = "JavaScript";
-        String description = "Programming language";
-
-        SearchPageObject.initSearchInput();
-        SearchPageObject.typeSearchLine(search_line);
-        SearchPageObject.waitForElementByTitleAndDescription(title, description);
-    }
 
 }

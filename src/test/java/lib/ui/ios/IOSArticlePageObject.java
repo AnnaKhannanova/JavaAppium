@@ -2,6 +2,7 @@ package lib.ui.ios;
 
 import io.appium.java_client.AppiumDriver;
 import lib.ui.ArticlePageObject;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class IOSArticlePageObject extends ArticlePageObject {
 
@@ -13,7 +14,7 @@ public class IOSArticlePageObject extends ArticlePageObject {
         //ARTICLE_TITLE_TEXT_ELEMENT = "id:org.wikipedia:id/view_page_title_text";
     }
 
-    public IOSArticlePageObject(AppiumDriver driver){
+    public IOSArticlePageObject(RemoteWebDriver driver){
         super(driver);
     }
 

@@ -3,6 +3,7 @@ import lib.Platform;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ abstract public class SearchPageObject extends MainPageObject{
             CANCEL_SEARCH_BUTTON;
 
 
-    public SearchPageObject(AppiumDriver driver){
+    public SearchPageObject(RemoteWebDriver driver){
         super(driver);
     }
 
