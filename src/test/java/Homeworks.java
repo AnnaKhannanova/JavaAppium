@@ -61,7 +61,7 @@ public class Homeworks extends CoreTestCase {
 
             ArticlePageObject.waitForTitleElement();
 
-            assertEquals("We are not on the same page after login.",
+            Assert.assertEquals("We are not on the same page after login.",
                     article_title1,
                     ArticlePageObject.getArticleTitle()
             );
@@ -123,19 +123,19 @@ public class Homeworks extends CoreTestCase {
         //Check that the second article is in the list
 
         if (Platform.getInstance().isAndroid()){
-            assertEquals(
+            Assert.assertEquals(
                     "Unexpected description",
                     description3.toLowerCase(),
                     MyListPageObject.getDescription(description3).getAttribute("text").toLowerCase()
             );
         } else if (Platform.getInstance().isIOS()){
-            assertEquals(
+            Assert.assertEquals(
                     "Unexpected description",
                     description2.toLowerCase(),
                     MyListPageObject.getDescription(description2).getAttribute("name").toLowerCase()
             );
         } else {
-            assertEquals(
+            Assert.assertEquals(
                     "Unexpected title",
                     article_title,
                     article_title2
@@ -159,7 +159,7 @@ public class Homeworks extends CoreTestCase {
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
 
-        assertTrue(
+        Assert.assertTrue(
                 "The title is not found",
                 ArticlePageObject.findArticleTitleWithoutWait() > 0
         );
