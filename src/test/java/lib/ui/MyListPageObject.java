@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -38,7 +39,7 @@ abstract public class MyListPageObject extends MainPageObject {
         super(driver);
     }
 
-    //Open the reading list with articles
+    @Step("Open the reading list with articles")
     public void openFolderByName(String name_of_folder) {
         String folder_name_xpath = getFolderXpathByName(name_of_folder);
 
@@ -55,7 +56,7 @@ abstract public class MyListPageObject extends MainPageObject {
         );
     }
 
-    //Open the article clicking the title within the reading list
+    @Step("Open the article clicking the title within the reading list")
     public void waitForArticleAppearByTitle(String article_title) {
         String article_xpath = getSaveArticleXpathByTitle(article_title);
         this.waitForElementPresent(
@@ -65,7 +66,7 @@ abstract public class MyListPageObject extends MainPageObject {
         );
     }
 
-    //Click the article with the title
+    @Step("Click the article with the title")
     public void waitForArticleAppearAndClickByTitle(String article_title) {
         String article_xpath = getSaveArticleXpathByTitle(article_title);
         this.waitForElementAndClick(
@@ -75,7 +76,7 @@ abstract public class MyListPageObject extends MainPageObject {
         );
     }
 
-    //Check that the article is removed from the reading list
+    @Step("Check that the article is removed from the reading list")
     public void waitForArticleToDisappearByTitle(String article_title) {
         String article_xpath = getSaveArticleXpathByTitle(article_title);
         this.waitForElementNotPresent(
@@ -85,7 +86,7 @@ abstract public class MyListPageObject extends MainPageObject {
         );
     }
 
-    //Delete the article from the reading list
+    @Step("Delete the article from the reading list")
     public void swipeByArticleToDelete(String article_title) {
         this.waitForArticleAppearByTitle(article_title);
         String article_xpath = getSaveArticleXpathByTitle(article_title);
@@ -116,6 +117,7 @@ abstract public class MyListPageObject extends MainPageObject {
         this.waitForArticleToDisappearByTitle(article_title);
     }
 
+    @Step("Click the 'Sync' button in iOS")
     public void waitAndClickCloseSyncButton() {
         this.waitForElementAndClick(
                 CLOSE_SYNC_BUTTON,
@@ -124,6 +126,7 @@ abstract public class MyListPageObject extends MainPageObject {
         );
     }
 
+    @Step("Click the delete button")
     public void waitDeleteButtonAndClick() {
         this.waitForElementAndClick(
                 DELETE_BUTTON,
@@ -132,6 +135,7 @@ abstract public class MyListPageObject extends MainPageObject {
         );
     }
 
+    @Step("Get the article description")
     public WebElement getDescription(String description) {
         if (Platform.getInstance().isAndroid()) {
             return this.waitForElementPresent(

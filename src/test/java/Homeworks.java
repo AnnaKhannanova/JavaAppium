@@ -1,3 +1,5 @@
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.Platform;
 import lib.ui.factories.ArticlePageObjectFactory;
@@ -22,6 +24,10 @@ public class Homeworks extends CoreTestCase {
 
 
     @Test
+    @Features(value = {@Feature(value="Search"),@Feature(value="Article"),@Feature(value="List")})
+    @DisplayName("Save two articles and delete one")
+    @Description("Saving two articles to reading list and delete one")
+    @Severity(value = SeverityLevel.NORMAL)
     public void testSaveTwoArticlesAndDeleteOne() throws InterruptedException {
 
         String search_value = "Java";
@@ -145,6 +151,10 @@ public class Homeworks extends CoreTestCase {
     }
 
     @Test
+    @Features(value = {@Feature(value="Search"),@Feature(value="Article")})
+    @DisplayName("Element presence assertion")
+    @Description("Finding the article and checking the title without waiting")
+    @Severity(value = SeverityLevel.TRIVIAL)
     public void testAssertElementPresent(){
 
         String search_value = "Java";
@@ -167,6 +177,10 @@ public class Homeworks extends CoreTestCase {
     }
 
     @Test
+    @Feature(value = "Search")
+    @DisplayName("Cancel searching the articles")
+    @Description("Searching the articles and canceling the search")
+    @Severity(value = SeverityLevel.NORMAL)
     public void testCancelSearchingOfArticles(){
 
         String search_value = "Java";
@@ -180,6 +194,10 @@ public class Homeworks extends CoreTestCase {
     }
 
     @Test
+    @Features(value = {@Feature(value="Search"),@Feature(value="Article")})
+    @DisplayName("All articles contain search value")
+    @Description("Searching the articles and checking that all of them contain the search value")
+    @Severity(value = SeverityLevel.NORMAL)
     public void testAllArticlesContainSearchValue(){
         String search_value = "Java";
         String search_value_low = search_value.toLowerCase();
@@ -213,6 +231,10 @@ public class Homeworks extends CoreTestCase {
         }
 
     @Test
+    @Feature(value="Search")
+    @DisplayName("Find article in the list by title and description")
+    @Description("Searching the article and finding it within the result list by title and description")
+    @Severity(value = SeverityLevel.NORMAL)
     public void testFindSearchResultByTitleAndDescription(){
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 

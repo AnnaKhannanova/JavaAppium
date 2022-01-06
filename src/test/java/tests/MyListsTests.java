@@ -1,5 +1,7 @@
 package tests;
 
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.Platform;
 import lib.ui.*;
@@ -10,6 +12,7 @@ import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
+@Epic("Tests for reading lists")
 public class MyListsTests extends CoreTestCase {
 
     private static final String name_of_folder = "Learning programming";
@@ -18,6 +21,10 @@ public class MyListsTests extends CoreTestCase {
             password = "chibrina1945";
 
     @Test
+    @Features(value = {@Feature(value="Search"),@Feature(value="Article"),@Feature(value="List")})
+    @DisplayName("Save an article to list")
+    @Description("Save an article to the new reading list ")
+    @Severity(value = SeverityLevel.NORMAL)
     public void testSaveFirstArticleToMyList() throws InterruptedException {
 
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);

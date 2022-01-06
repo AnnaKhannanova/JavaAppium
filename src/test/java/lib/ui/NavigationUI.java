@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -14,6 +15,7 @@ abstract public class NavigationUI extends MainPageObject {
         super(driver);
     }
 
+    @Step("Open the list of the article")
     public void clickMyList(){
         if (Platform.getInstance().isMw()){
             this.tryClickElementWithFewAttempts(
@@ -30,6 +32,8 @@ abstract public class NavigationUI extends MainPageObject {
         }
     }
 
+
+    @Step("Open the navigation menu in mobile web")
     public void openNavigation() throws InterruptedException {
         if (Platform.getInstance().isMw()){
             Thread.sleep(2000);
