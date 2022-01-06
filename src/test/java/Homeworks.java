@@ -14,6 +14,7 @@ import lib.ui.*;
 
 import javax.swing.*;
 import java.util.List;
+import java.util.ServiceConfigurationError;
 
 public class Homeworks extends CoreTestCase {
 
@@ -207,7 +208,7 @@ public class Homeworks extends CoreTestCase {
         SearchPageObject.initSearchInput(); //get the search field
         SearchPageObject.typeSearchLine(search_value);    //type "Java" to the search field
 
-        SearchPageObject.waitForSearchResult(search_value); //the search result appears
+        SearchPageObject.waitForSearchResult(search_value); //the search result appears);
 
         List titles_list = SearchPageObject.getArticlesTitlesList();    //get list of article titles
 
@@ -219,10 +220,15 @@ public class Homeworks extends CoreTestCase {
                             "Does not contain " + search_value,
                             title.getAttribute("text").toLowerCase().contains(search_value_low)
                     );
-                } else {
+                } else if (Platform.getInstance().isIOS()){
                     Assert.assertTrue(
                             "Does not contain " + search_value,
                             title.getAttribute("name").toLowerCase().contains(search_value_low)
+                    );
+                } else {
+                    Assert.assertTrue(
+                            "Does not contain " + search_value,
+                            title.getAttribute("title").toLowerCase().contains(search_value_low)
                     );
                 }
             }

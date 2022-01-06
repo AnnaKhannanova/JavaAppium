@@ -140,8 +140,10 @@ abstract public class SearchPageObject extends MainPageObject{
     public List getArticlesTitlesList(){
         if (Platform.getInstance().isAndroid()) {
             return getSearchResultList().findElements(By.id("org.wikipedia:id/page_list_item_title"));
-        } else{
+        } else if (Platform.getInstance().isIOS()){
             return getSearchResultList().findElements(By.xpath("//XCUIElementTypeCell/XCUIElementTypeOther/XCUIElementTypeStaticText[1]"));
+        } else {
+            return getSearchResultList().findElements(By.cssSelector("li"));
         }
     }
 
